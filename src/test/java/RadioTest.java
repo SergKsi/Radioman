@@ -44,7 +44,7 @@ public class RadioTest {
     public void shouldNotSetMaxRadioStatio() {
         Radio rd = new Radio();
         rd.setCurrentRadioStation(14);
-        int expected = 0;
+        int expected = 9;
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -55,7 +55,7 @@ public class RadioTest {
     public void shouldNotSetMinRadioStatio() {
         Radio rd = new Radio();
         rd.setCurrentRadioStation(-7);
-        int expected = 0;
+        int expected = 9;
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -99,6 +99,91 @@ public class RadioTest {
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
     }
+
+
+    // ТЕСТЫ С КОНСТРУКТОРОМ
+
+
+    // следующая станцимя в диапазоне от 0 до 8
+    @Test
+    public void shouldSetNextRadioStationConstr08() {
+        Radio rd = new Radio(10);
+        rd.nextRadioStation(7);
+        Assertions.assertEquals(8, rd.getCurrentRadioStation());
+    }
+
+    // следующая станцимя = 9 - переходим на станциюю = 0
+    @Test
+    public void shouldSetNextRadioStationConstr9() {
+        Radio rd = new Radio(10);
+        rd.nextRadioStation(9);
+        Assertions.assertEquals(0, rd.getCurrentRadioStation());
+    }
+
+    // кол-во станций = 300,за 299 - 0
+    @Test
+    public void shouldSetNextRadioStationConstr300299() {
+        Radio rd = new Radio(300);
+        rd.nextRadioStation(299);
+        Assertions.assertEquals(0, rd.getCurrentRadioStation());
+    }
+
+    // кол-во станций = 300,за 291 - 292
+    @Test
+    public void shouldSetNextRadioStationConstr300291() {
+        Radio rd = new Radio(300);
+        rd.nextRadioStation(291);
+        Assertions.assertEquals(292, rd.getCurrentRadioStation());
+    }
+
+    // кол-во станций = 300,за 0 - 1
+    @Test
+    public void shouldSetNextRadioStationConstr3000() {
+        Radio rd = new Radio(300);
+        rd.nextRadioStation(0);
+        Assertions.assertEquals(1, rd.getCurrentRadioStation());
+    }
+
+    // предыдущая станцимя в диапазоне от 1 до 9
+    @Test
+    public void shouldSetPrevRadioStationConstr19() {
+        Radio rd = new Radio(10);
+        rd.prevRadioStation(8);
+        Assertions.assertEquals(7,rd.getCurrentRadioStation());
+    }
+
+    // следующая станцимя = 9 - переходим на станциюю = 0
+    @Test
+    public void shouldSetPrevRadioStationConstr0() {
+        Radio rd = new Radio(10);
+        rd.prevRadioStation(0);
+        Assertions.assertEquals(9,rd.getCurrentRadioStation());
+    }
+
+    // кол-во станций = 300,перед 299 - 298
+    @Test
+    public void shouldSetPrevRadioStationConstr300299() {
+        Radio rd = new Radio(300);
+        rd.prevRadioStation(299);
+        Assertions.assertEquals(298,rd.getCurrentRadioStation());
+    }
+
+    // кол-во станций = 300,перед 0 - 299
+    @Test
+    public void shouldSetPrevRadioStationConstr3000() {
+        Radio rd = new Radio(300);
+        rd.prevRadioStation(0);
+        Assertions.assertEquals(299,rd.getCurrentRadioStation());
+    }
+
+    // кол-во станций = 300,перед 156 - 155
+    @Test
+    public void shouldSetPrevRadioStationConstr300156() {
+        Radio rd = new Radio(300);
+        rd.prevRadioStation(156);
+        Assertions.assertEquals(155,rd.getCurrentRadioStation());
+    }
+
     // -----------------------------
     // ТЕСТЫ - РАДИОСТАНЦИЯ - КОНЕЦ
     // -----------------------------
@@ -123,7 +208,7 @@ public class RadioTest {
     public void shouldSetMaxVolume() {
         Radio rd = new Radio();
         rd.setToMaxVolume();
-        int expected = 10;
+        int expected = 100;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -143,8 +228,8 @@ public class RadioTest {
     @Test
     public void shouldNotSetMaxVolume() {
         Radio rd = new Radio();
-        rd.setCurrentVolumeRadioStation(14);
-        int expected = 10;
+        rd.setCurrentVolumeRadioStation(140);
+        int expected = 100;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -177,8 +262,8 @@ public class RadioTest {
     public void shouldNextVolume10() {
         Radio rd = new Radio();
         rd.setToMaxVolume();
-        rd.incVolume(10);
-        int expected = 10;
+        rd.incVolume(100);
+        int expected = 100;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -188,8 +273,8 @@ public class RadioTest {
     public void shouldNextVolumeHigh10() {
         Radio rd = new Radio();
         rd.setToMaxVolume();
-        rd.incVolume(15);
-        int expected = 10;
+        rd.incVolume(150);
+        int expected = 100;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -221,8 +306,8 @@ public class RadioTest {
     public void shouldPrevVolumeHigh10() {
         Radio rd = new Radio();
         rd.setToMinVolume();
-        rd.decVolume(15);
-        int expected = 10;
+        rd.decVolume(150);
+        int expected = 100;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
