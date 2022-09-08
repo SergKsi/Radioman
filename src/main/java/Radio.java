@@ -1,33 +1,34 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+
 public class Radio {
-    private int currentRadioStation; // текущая станция - сокращаем уровень доступа (private)
-    private int currentVolumeRadioStation; // текущая громкость - сокращаем уровень доступа (private)
 
-    // -----------------------------------------
-    // МЕТОДЫ - РАДИОСТАНЦИИ - НАЧАЛО
-    // -----------------------------------------
+    private int countRadioStation = 10; // кол-во радиостанций
 
-    // установка максимальной радиостанции
-    public void setToMaxRadioStation() {
-        currentRadioStation = 9;
-    }
+    private int minRadiostaion = 0; // Номер 1-ой радиостанции
 
-    // установка минимаоной радиостанции
-    public void setToMinRadioStation() {
-        currentRadioStation = 0;
-    }
+    private int maxRadioStation = 9; // Номер 10-ой (последней) радиостанции
 
-    // получаем текущую радиостанцию
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
-    }
+    private int currentRadioStation = maxRadioStation; // текущая радиостанция = максимаоная
+
+    private int minVolumeRadioStation = 0; // мин громкость
+
+    private int maxVolumeRadioStation = 100; // макс. громкость
+
+    private int currentVolumeRadioStation = maxVolumeRadioStation; // текущая громкость - сокращаем уровень доступа (private)
 
     // устанавливаем радиостанцию в пределах от 0 до 9.
     // если больше 9, или меньше 0 - текущая станция  = 0
     public void setCurrentRadioStation(int newCurrentRadioStation) {
-        if (newCurrentRadioStation < 0) {
+        if (newCurrentRadioStation < minRadiostaion) {
             return;
         }
-        if (newCurrentRadioStation > 9) {
+        if (newCurrentRadioStation > maxRadioStation) {
             return;
         }
         currentRadioStation = newCurrentRadioStation;
@@ -38,8 +39,8 @@ public class Radio {
     //  при нажатии на эту же кнопку радио переключается просто на следующую станцию.
     public void nextRadioStation(int newCurrentRadioStation) {
         setCurrentRadioStation(newCurrentRadioStation);
-        if (newCurrentRadioStation == 9) {
-            currentRadioStation = 0;
+        if (newCurrentRadioStation == maxRadioStation) {
+            currentRadioStation = minRadiostaion;
             return;
         }
         currentRadioStation = newCurrentRadioStation + 1;
@@ -50,44 +51,22 @@ public class Radio {
     //  радиопереключается просто на предыдущую станцию.
     public void prevRadioStation(int newCurrentRadioStation) {
         setCurrentRadioStation(newCurrentRadioStation);
-        if (newCurrentRadioStation == 0) {
-            currentRadioStation = 9;
+        if (newCurrentRadioStation == minRadiostaion) {
+            currentRadioStation = maxRadioStation;
             return;
         }
         currentRadioStation = newCurrentRadioStation - 1;
-    }
-    // -----------------------------------------
-    // МЕТОДЫ - РАДИОСТАНЦИИ - КОНЕЦ
-    // -----------------------------------------
-
-    // -----------------------------------------
-    // МЕТОДЫ -Громкость звука - НАЧАЛО
-    // -----------------------------------------
-
-    // установка максиманую громкость
-    public void setToMaxVolume() {
-        currentVolumeRadioStation = 10;
-    }
-
-    // установка минималную громкость
-    public void setToMinVolume() {
-        currentVolumeRadioStation = 0;
-    }
-
-    // получаем текущюю громкость
-    public int getCurrentVolumeRadioStation() {
-        return currentVolumeRadioStation;
     }
 
     // Клиент должен иметь возможность увеличивать и уменьшать уровень громкости звука
     // (в пределах от 0 до 10)
     public void setCurrentVolumeRadioStation(int newCurrentVolumeRadioStation) {
-        if (newCurrentVolumeRadioStation < 0) {
-            currentVolumeRadioStation = 0;
+        if (newCurrentVolumeRadioStation < minVolumeRadioStation) {
+            currentVolumeRadioStation = minVolumeRadioStation;
             return;
         }
-        if (newCurrentVolumeRadioStation > 10) {
-            currentVolumeRadioStation = 10;
+        if (newCurrentVolumeRadioStation > maxVolumeRadioStation) {
+            currentVolumeRadioStation = maxVolumeRadioStation;
             return;
         }
         currentVolumeRadioStation = newCurrentVolumeRadioStation;
@@ -99,8 +78,8 @@ public class Radio {
     // не должно ни к чему приводить
     public void incVolume(int newVolume) {
         setCurrentVolumeRadioStation(newVolume);
-        if (newVolume >= 10) {
-            currentVolumeRadioStation = 10;
+        if (newVolume >= maxVolumeRadioStation) {
+            currentVolumeRadioStation = maxVolumeRadioStation;
             return;
         }
         currentVolumeRadioStation = newVolume + 1;
@@ -111,18 +90,15 @@ public class Radio {
     // не должно ни к чему приводить
     public void decVolume(int newVolume) {
         setCurrentVolumeRadioStation(newVolume);
-        if (newVolume <= 0) {
-            currentVolumeRadioStation = 0;
+        if (newVolume <= minVolumeRadioStation) {
+            currentVolumeRadioStation = minVolumeRadioStation;
             return;
         }
-        if (newVolume > 10) {
+        if (newVolume > maxVolumeRadioStation) {
             return;
         }
         currentVolumeRadioStation = newVolume - 1;
     }
 
 
-    // -----------------------------------------
-    // МЕТОДЫ -Громкость звука - КОНЕЦ
-    // -----------------------------------------
 }
