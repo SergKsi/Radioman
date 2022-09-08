@@ -1,3 +1,11 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+
 public class Radio {
 
     private int countRadioStation = 10; // кол-во радиостанций
@@ -13,38 +21,6 @@ public class Radio {
     private int maxVolumeRadioStation = 100; // макс. громкость
 
     private int currentVolumeRadioStation = maxVolumeRadioStation; // текущая громкость - сокращаем уровень доступа (private)
-
-    // конструктор хранит количество станций
-    public Radio(int countRadioStation) {
-        this.countRadioStation = countRadioStation;
-        this.minRadiostaion = minRadiostaion;
-        this.maxRadioStation = countRadioStation - 1;
-        this.currentRadioStation = this.maxRadioStation;
-    }
-
-    // конструктор пустой
-    public Radio() {
-
-    }
-
-    // -----------------------------------------
-    // МЕТОДЫ - РАДИОСТАНЦИИ - НАЧАЛО
-    // -----------------------------------------
-
-    // установка максимальной радиостанции
-    public void setToMaxRadioStation() {
-        currentRadioStation = maxRadioStation;
-    }
-
-    // установка минимаоной радиостанции
-    public void setToMinRadioStation() {
-        currentRadioStation = minRadiostaion;
-    }
-
-    // получаем текущую радиостанцию
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
-    }
 
     // устанавливаем радиостанцию в пределах от 0 до 9.
     // если больше 9, или меньше 0 - текущая станция  = 0
@@ -80,28 +56,6 @@ public class Radio {
             return;
         }
         currentRadioStation = newCurrentRadioStation - 1;
-    }
-    // -----------------------------------------
-    // МЕТОДЫ - РАДИОСТАНЦИИ - КОНЕЦ
-    // -----------------------------------------
-
-    // -----------------------------------------
-    // МЕТОДЫ -Громкость звука - НАЧАЛО
-    // -----------------------------------------
-
-    // установка максиманую громкость
-    public void setToMaxVolume() {
-        currentVolumeRadioStation = maxVolumeRadioStation;
-    }
-
-    // установка минималную громкость
-    public void setToMinVolume() {
-        currentVolumeRadioStation = minVolumeRadioStation;
-    }
-
-    // получаем текущюю громкость
-    public int getCurrentVolumeRadioStation() {
-        return currentVolumeRadioStation;
     }
 
     // Клиент должен иметь возможность увеличивать и уменьшать уровень громкости звука
@@ -146,7 +100,5 @@ public class Radio {
         currentVolumeRadioStation = newVolume - 1;
     }
 
-    // -----------------------------------------
-    // МЕТОДЫ -Громкость звука - КОНЕЦ
-    // -----------------------------------------
+
 }
