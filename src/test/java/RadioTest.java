@@ -64,17 +64,19 @@ public class RadioTest {
     @Test
     public void shouldSetNextRadioStation08() {
         Radio rd = new Radio();
-        rd.nextRadioStation(5);
-        int expected = 6;
+        rd.setCurrentRadioStation(7);
+        rd.nextRadioStation();
+        int expected = 8;
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
     }
 
-    // следующая станцимя = 9 - переходим на станциюю = 0
+    // следующая станцимя =  - переходим на станциюю = 0
     @Test
     public void shouldSetNextRadioStation9() {
         Radio rd = new Radio();
-        rd.nextRadioStation(9);
+        rd.setToMaxRadioStation();
+        rd.nextRadioStation();
         int expected = 0;
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
@@ -84,7 +86,8 @@ public class RadioTest {
     @Test
     public void shouldSetPrevRadioStation19() {
         Radio rd = new Radio();
-        rd.prevRadioStation(9);
+        rd.setCurrentRadioStation(9);
+        rd.prevRadioStation();
         int expected = 8;
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
@@ -94,7 +97,7 @@ public class RadioTest {
     @Test
     public void shouldSetPrevRadioStation0() {
         Radio rd = new Radio();
-        rd.prevRadioStation(0);
+        rd.prevRadioStation();
         int expected = 9;
         int actual = rd.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
@@ -165,9 +168,9 @@ public class RadioTest {
     @Test
     public void shouldNextVolume09() {
         Radio rd = new Radio();
-        rd.setToMaxVolume();
-        rd.incVolume(9);
-        int expected = 10;
+        rd.setCurrentVolumeRadioStation(7);
+        rd.incVolume();
+        int expected = 8;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -177,30 +180,30 @@ public class RadioTest {
     public void shouldNextVolume10() {
         Radio rd = new Radio();
         rd.setToMaxVolume();
-        rd.incVolume(10);
+        rd.incVolume();
         int expected = 10;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
 
-    // следующая громкость > 10
-    @Test
-    public void shouldNextVolumeHigh10() {
-        Radio rd = new Radio();
-        rd.setToMaxVolume();
-        rd.incVolume(15);
-        int expected = 10;
-        int actual = rd.getCurrentVolumeRadioStation();
-        Assertions.assertEquals(expected, actual);
-    }
+//    // следующая громкость > 10
+//    @Test
+//    public void shouldNextVolumeHigh10() {
+//        Radio rd = new Radio();
+//        rd.setToMaxVolume();
+//        rd.incVolume();
+//        int expected = 10;
+//        int actual = rd.getCurrentVolumeRadioStation();
+//        Assertions.assertEquals(expected, actual);
+//    }
 
     //  предыдующая громкость в диапазоне от 1 до 10
     @Test
     public void shouldPrevVolume110() {
         Radio rd = new Radio();
-        rd.setToMinVolume();
-        rd.decVolume(9);
-        int expected = 8;
+        rd.setCurrentVolumeRadioStation(7);
+        rd.decVolume();
+        int expected = 6;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -210,7 +213,7 @@ public class RadioTest {
     public void shouldPrevVolume0() {
         Radio rd = new Radio();
         rd.setToMinVolume();
-        rd.decVolume(0);
+        rd.decVolume();
         int expected = 0;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
@@ -220,8 +223,8 @@ public class RadioTest {
     @Test
     public void shouldPrevVolumeHigh10() {
         Radio rd = new Radio();
-        rd.setToMinVolume();
-        rd.decVolume(15);
+        rd.setToMaxVolume();
+        rd.incVolume();
         int expected = 10;
         int actual = rd.getCurrentVolumeRadioStation();
         Assertions.assertEquals(expected, actual);
